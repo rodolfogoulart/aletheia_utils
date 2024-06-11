@@ -59,7 +59,59 @@ File changeFileNameOnlySync(File file, String newFileName) {
 // }
 
 ///separate the text in tokens (words)
-List<String> getTokensFromText(String text) {
+// List<String> getTokensFromText(String text, {bool includeWordsWithHyphens = false}) {
+//   List<String> tokens = [];
+//   String word = '';
+//   for (var i = 0; i < text.length; i++) {
+//     if (text[i] == ' ') {
+//       if (word.isNotEmpty) tokens.add(word);
+//       word = '';
+//       continue;
+//     } else {
+//       RegExp regExp = RegExp(r'[^A-Za-zÀ-ÖØ-öø-ÿ0-9]');
+//       if (includeWordsWithHyphens) {
+//         regExp = RegExp(r'[^A-Za-zÀ-ÖØ-öø-ÿ0-9(?:-\w+)]');
+//       }
+//       //regex for puntuation " "
+//       // if (RegExp(r'[^A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i])) {
+//       if (regExp.hasMatch(text[i])) {
+//         if (word.isNotEmpty) {
+//           tokens.add(word);
+//           word = '';
+//         }
+//         if (text[i].isNotEmpty) tokens.add(text[i]);
+//         word = '';
+//         continue;
+//       } else {
+//         word += text[i];
+//         //when the text ends without puntuation
+//         if (i + 1 == text.length) {
+//           tokens.add(word);
+//           word = '';
+//         }
+//       }
+//     }
+//   }
+//   return tokens;
+// }
+
+/// separate the text in tokens (words). when punctuation is included in the text it will be treated as a word (token)
+///
+/// **includeWordsWithHyphens**: check if include words with hyphens
+///
+/// Example:
+/// ```dart
+/// getTokensFromText('dizei-lhes que assim como, diz o Senhor');
+/// getTokensFromText('os céus e a terra: assim foi (fez) tudo que era bom');
+/// getTokensFromText('''it's good, i love you. ''');
+/// ```
+/// will return
+/// ```dart
+/// ['dizei-lhes', 'que', 'assim', 'como', 'diz', 'o', 'Senhor']
+/// ["os", "céus", "e", "a", "terra", ":", "assim", "foi", "(", "fez", ")", "tudo", "que", "era", "bom"]
+/// ["it's", "good", ",", "i", "love", "you", "."]
+/// ```
+List<String> getTokensFromText(String text, {bool includeWordsWithHyphens = false}) {
   List<String> tokens = [];
   String word = '';
   for (var i = 0; i < text.length; i++) {
@@ -68,8 +120,17 @@ List<String> getTokensFromText(String text) {
       word = '';
       continue;
     } else {
+      var isHyphem = false;
+      if (includeWordsWithHyphens) {
+        if (i > 0 && i + 1 < text.length) {
+          if (RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i - 1]) && RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i + 1])) {
+            isHyphem = true;
+          }
+        }
+      }
       //regex for puntuation " "
-      if (RegExp(r'[^A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i])) {
+      // if (!RegExp(r'''\w+(['"-]\w+)?''').hasMatch(text[i])) {
+      if (!isHyphem && RegExp(r'[^A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i])) {
         if (word.isNotEmpty) {
           tokens.add(word);
           word = '';
