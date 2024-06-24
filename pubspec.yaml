@@ -13,10 +13,10 @@ dependencies:
   #   sdk: flutter
   
   aletheia_core_model:
-    path: ../../core/aletheia-core-model/
-    # git: 
-    #   url: https://github.com/rodolfogoulart/aletheia-core-model.git
-    #   ref: main
+    # path: ../../core/aletheia-core-model/
+    git: 
+      url: https://github.com/rodolfogoulart/aletheia-core-model.git
+      ref: main
       
   # device_info_plus: ^10.1.0
   dio: ^5.4.3+1
