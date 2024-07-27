@@ -1,3 +1,5 @@
+import 'package:diacritic/diacritic.dart';
+
 extension RangeNum on num {
   bool isBetween(num a, num b) {
     //not  ( both greater || both lesser )
@@ -23,6 +25,9 @@ extension StringAletheiaExtension on String? {
 
   /// returns true if the list is not null and not empty
   bool get isNotEmptyOrNull => !isEmptyOrNull;
+
+  /// remove accents and diacritics from string
+  String? get replaceAccentsAndDiacritics => this.isNotEmptyOrNull ? removeDiacritics(this!) : null;
 }
 
 extension ListExtension<T> on List<T?>? {
