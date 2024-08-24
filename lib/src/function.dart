@@ -167,3 +167,21 @@ String removeEspecialCharacthers(String value, [String changeFor = ' ']) {
   // }
   return text.join();
 }
+
+///sorts a list by multiple properties
+///
+///https://stackoverflow.com/questions/55920677/how-to-sort-a-list-based-on-two-values
+int Function(T, T) multiPropertyCompare<T>(
+  List<(Comparable<Object?> Function(T), {bool ascending})> properties,
+) {
+  return (T a, T b) {
+    for (final (propertyExtractor, :ascending) in properties) {
+      final (x, y) = ascending ? (a, b) : (b, a);
+      final result = propertyExtractor(x).compareTo(propertyExtractor(y));
+      if (result != 0) {
+        return result;
+      }
+    }
+    return 0;
+  };
+}
