@@ -2,7 +2,7 @@ name: aletheia_utils
 description: "Aletheia Utils, contains functions and singletowns util for backend and frontend"
 version: 0.0.1
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-homepage:
+homepage: www.biblealetheia.com
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -12,11 +12,12 @@ dependencies:
   # flutter:
   #   sdk: flutter
   
-  aletheia_core_model:
+  aletheia_core:
     # path: ../../core/aletheia-core-model/
     git: 
       url: https://github.com/rodolfogoulart/aletheia-core-model.git
       ref: main
+      path: aletheia_core/
       
   # device_info_plus: ^10.1.0
   dio: ^5.4.3+1
