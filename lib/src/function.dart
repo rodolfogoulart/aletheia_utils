@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-Future<dynamic> httpLoadDynamic(String url) async {
+Future<dynamic> httpLoadDynamic(String url, {Function(int count, int total)? onReceiveProgress}) async {
   log('httpLoadDynamic : Url: $url');
   try {
     final dio = Dio();
@@ -12,6 +12,7 @@ Future<dynamic> httpLoadDynamic(String url) async {
       url,
       // options: Options(responseType: ResponseType.bytes),
       onReceiveProgress: (count, total) {
+        onReceiveProgress?.call(count, total);
         // log('$url               =====               downloading ($total from $count)');
       },
     );
