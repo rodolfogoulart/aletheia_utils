@@ -2,6 +2,9 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class IpApi {
+  ///just a helper
+  String? ip;
+
   ///IP used for the query
   String? query;
 
@@ -55,6 +58,8 @@ class IpApi {
 
   ///Hosting, colocated or data center
   bool? hosting;
+
+  ///for ip use the field `query`
   IpApi({
     this.query,
     this.region,
@@ -79,7 +84,9 @@ class IpApi {
     this.mobile,
     this.proxy,
     this.hosting,
-  });
+  }) {
+    ip = query;
+  }
 
   IpApi copyWith({
     String? query,
@@ -130,11 +137,13 @@ class IpApi {
       mobile: mobile ?? this.mobile,
       proxy: proxy ?? this.proxy,
       hosting: hosting ?? this.hosting,
-    );
+    )..ip = query ?? this.query;
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      //add ip
+      'ip': query,
       'query': query,
       'region': region,
       'city': city,
@@ -163,7 +172,8 @@ class IpApi {
 
   factory IpApi.fromMap(Map<String, dynamic> map) {
     return IpApi(
-      query: map['query'] != null ? map['query'] as String : null,
+      //if has ip as map key
+      query: map['ip'] ?? (map['query'] != null ? map['query'] as String : null),
       region: map['region'] != null ? map['region'] as String : null,
       city: map['city'] != null ? map['city'] as String : null,
       country: map['country'] != null ? map['country'] as String : null,
