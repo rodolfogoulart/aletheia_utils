@@ -13,3 +13,5 @@ export 'package:aletheia_utils/src/api/ip/ip_api/ip.api.model.dart';
 export 'package:aletheia_utils/src/api/ip/ip_registry/ipregistry.dart';
 export 'package:aletheia_utils/src/api/ip/ip_registry/ipregistry.model.dart';
 export 'package:aletheia_utils/src/api/ip/icanhazip.dart';
+
+export 'package:aletheia_utils/src/print/custom_print.dart';
