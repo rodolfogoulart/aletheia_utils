@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 import 'package:dio/dio.dart';
 
 Future<dynamic> httpLoadDynamic(String url, {Function(int count, int total)? onReceiveProgress}) async {
@@ -185,4 +186,28 @@ int Function(T, T) multiPropertyCompare<T>(
     }
     return 0;
   };
+}
+
+///parse version to int
+///
+///example: 1.0.12 => 1012
+parseVersionToInt(String version) {
+  version = version.replaceAll('.', '');
+  return int.parse(version);
+}
+
+void encryptFile({required String text, required String password, required String path}) {
+  AesCrypt crypt = AesCrypt();
+
+  crypt.setPassword(password);
+  // Overwrites the file if it exists.
+  crypt.setOverwriteMode(AesCryptOwMode.on);
+  crypt.encryptTextToFileSync(text, path);
+}
+
+String decryptFile({required String password, required String path}) {
+  AesCrypt crypt = AesCrypt();
+  //
+  crypt.setPassword(password);
+  return crypt.decryptTextFromFileSync(path);
 }
