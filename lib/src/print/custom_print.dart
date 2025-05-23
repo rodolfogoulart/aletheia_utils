@@ -1,33 +1,5 @@
 import 'dart:developer';
 
-// import 'package:ansicolor/ansicolor.dart';
-
-// printError(Object object, [bool showStackTrace = false]) {
-//   // if (!kDebugMode) return;
-//   AnsiPen pen = AnsiPen()..red(bold: true);
-//   log(pen(object) + pen(showStackTrace ? '\n${StackTrace.current}' : ''));
-// }
-
-// printInfo(Object object) {
-//   // if (!kDebugMode) return;
-//   AnsiPen pen = AnsiPen()..blue();
-//   log(pen(object));
-// }
-
-// printWarning(Object object) {
-//   // if (!kDebugMode) return;
-//   AnsiPen pen = AnsiPen()..yellow();
-//   log(pen(object));
-// }
-
-// printSuccess(Object object) {
-//   // if (!kDebugMode) return;
-//   AnsiPen pen = AnsiPen()..green();
-//   log(pen(object));
-// }
-
-// import 'package:flutter/foundation.dart';
-
 enum ConsoleColor {
   reset,
   red,
@@ -54,7 +26,12 @@ const Map<ConsoleColor, String> colorCodes = {
 
 void printError(Object object, [bool showStackTrace = false]) {
   // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.red]}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${colorCodes[ConsoleColor.reset]}');
+  var message =
+      '${colorCodes[ConsoleColor.red]}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${colorCodes[ConsoleColor.reset]}';
+  log(message);
+  //todo
+  // if (saveToFile) {
+  // }
 }
 
 void printInfo(Object object) {

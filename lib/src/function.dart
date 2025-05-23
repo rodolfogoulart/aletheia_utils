@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
+// import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 import 'package:dio/dio.dart';
 
-Future<dynamic> httpLoadDynamic(String url, {Function(int count, int total)? onReceiveProgress}) async {
+Future<dynamic> httpLoadDynamic(String url,
+    {Function(int count, int total)? onReceiveProgress}) async {
   log('httpLoadDynamic : Url: $url');
   try {
     final dio = Dio();
@@ -113,7 +114,8 @@ File changeFileNameOnlySync(File file, String newFileName) {
 /// ["os", "céus", "e", "a", "terra", ":", "assim", "foi", "(", "fez", ")", "tudo", "que", "era", "bom"]
 /// ["it's", "good", ",", "i", "love", "you", "."]
 /// ```
-List<String> getTokensFromText(String text, {bool includeWordsWithHyphens = false}) {
+List<String> getTokensFromText(String text,
+    {bool includeWordsWithHyphens = false}) {
   List<String> tokens = [];
   String word = '';
   for (var i = 0; i < text.length; i++) {
@@ -125,7 +127,8 @@ List<String> getTokensFromText(String text, {bool includeWordsWithHyphens = fals
       var isHyphem = false;
       if (includeWordsWithHyphens) {
         if (i > 0 && i + 1 < text.length) {
-          if (RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i - 1]) && RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i + 1])) {
+          if (RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i - 1]) &&
+              RegExp(r'[A-Za-zÀ-ÖØ-öø-ÿ0-9]').hasMatch(text[i + 1])) {
             isHyphem = true;
           }
         }
@@ -157,7 +160,8 @@ List<String> getTokensFromText(String text, {bool includeWordsWithHyphens = fals
 ///
 ///only ascii from 32 to 255 remain
 String removeEspecialCharacthers(String value, [String changeFor = ' ']) {
-  List<String> text = List<String>.generate(value.length, (index) => value[index]);
+  List<String> text =
+      List<String>.generate(value.length, (index) => value[index]);
   // List<int> utf8List = value.codeUnits.toList();
   // if (utf8List.where((element) => element > 255).isNotEmpty) {
   for (int i = 0; i < text.length; i++) {
@@ -196,18 +200,18 @@ parseVersionToInt(String version) {
   return int.parse(version);
 }
 
-void encryptFile({required String text, required String password, required String path}) {
-  AesCrypt crypt = AesCrypt();
+// void encryptFile({required String text, required String password, required String path}) {
+//   AesCrypt crypt = AesCrypt();
 
-  crypt.setPassword(password);
-  // Overwrites the file if it exists.
-  crypt.setOverwriteMode(AesCryptOwMode.on);
-  crypt.encryptTextToFileSync(text, path);
-}
+//   crypt.setPassword(password);
+//   // Overwrites the file if it exists.
+//   crypt.setOverwriteMode(AesCryptOwMode.on);
+//   crypt.encryptTextToFileSync(text, path);
+// }
 
-String decryptFile({required String password, required String path}) {
-  AesCrypt crypt = AesCrypt();
-  //
-  crypt.setPassword(password);
-  return crypt.decryptTextFromFileSync(path);
-}
+// String decryptFile({required String password, required String path}) {
+//   AesCrypt crypt = AesCrypt();
+//   //
+//   crypt.setPassword(password);
+//   return crypt.decryptTextFromFileSync(path);
+// }
