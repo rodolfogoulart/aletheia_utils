@@ -34,41 +34,41 @@ class PrintSettings {
 void printError(Object object, [bool showStackTrace = false]) {
   if (!PrintSettings().enabled) return;
   var message =
-      '${PrintSettings().getDateTime()}${ConsoleColor.red}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${ConsoleColor.reset}';
+      '${PrintSettings().getDateTime()}${ConsoleColor.red.code}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${ConsoleColor.reset.code}';
   log(message);
 }
 
 void printInfo(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.blue}[INFO]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.blue.code}[INFO]: $object${ConsoleColor.reset.code}');
 }
 
 void printWarning(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.yellow}[WARNING]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.yellow.code}[WARNING]: $object${ConsoleColor.reset.code}');
 }
 
 void printSuccess(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.green}[SUCCESS]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.green.code}[SUCCESS]: $object${ConsoleColor.reset.code}');
 }
 
 void printDebug(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.magenta}[DEBUG]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.magenta.code}[DEBUG]: $object${ConsoleColor.reset.code}');
 }
 
 void printCritical(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.cyan}[CRITICAL]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.cyan.code}[CRITICAL]: $object${ConsoleColor.reset.code}');
 }
 
 void printVerbose(Object object) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${ConsoleColor.gray}[VERBOSE]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${ConsoleColor.gray.code}[VERBOSE]: $object${ConsoleColor.reset.code}');
 }
 
 void printCustom(Object object, ConsoleColor color) {
   if (!PrintSettings().enabled) return;
-  log('${PrintSettings().getDateTime()}${color}[CUSTOM]: $object${ConsoleColor.reset}');
+  log('${PrintSettings().getDateTime()}${color.code}[CUSTOM]: $object${ConsoleColor.reset.code}');
 }
