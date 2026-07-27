@@ -1,70 +1,74 @@
 import 'dart:developer';
 
 enum ConsoleColor {
-  reset,
-  red,
-  blue,
-  yellow,
-  green,
-  magenta,
-  cyan,
-  white,
-  gray,
+  reset('\x1B[0m'),
+  red('\x1B[31m'),
+  blue('\x1B[34m'),
+  yellow('\x1B[33m'),
+  green('\x1B[32m'),
+  magenta('\x1B[35m'),
+  cyan('\x1B[36m'),
+  white('\x1B[37m'),
+  gray('\x1B[90m');
+
+  final String code;
+  const ConsoleColor(this.code);
 }
 
-const Map<ConsoleColor, String> colorCodes = {
-  ConsoleColor.reset: '\x1B[0m',
-  ConsoleColor.red: '\x1B[31m',
-  ConsoleColor.blue: '\x1B[34m',
-  ConsoleColor.yellow: '\x1B[33m',
-  ConsoleColor.green: '\x1B[32m',
-  ConsoleColor.magenta: '\x1B[35m',
-  ConsoleColor.cyan: '\x1B[36m',
-  ConsoleColor.white: '\x1B[37m',
-  ConsoleColor.gray: '\x1B[90m',
-};
+class PrintSettings {
+  bool useDateTime = false;
+  bool enabled = true;
+  //singleton
+  PrintSettings._internal();
+  static final PrintSettings _instance = PrintSettings._internal();
+  factory PrintSettings() => _instance;
+
+  String getDateTime() {
+    if (useDateTime) {
+      return '${DateTime.now().toIso8601String()} | ';
+    }
+    return '';
+  }
+}
 
 void printError(Object object, [bool showStackTrace = false]) {
-  // if (!kDebugMode) return;
+  if (!PrintSettings().enabled) return;
   var message =
-      '${colorCodes[ConsoleColor.red]}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${colorCodes[ConsoleColor.reset]}';
+      '${PrintSettings().getDateTime()}${ConsoleColor.red}[ERROR]: $object${showStackTrace ? '\n${StackTrace.current}' : ''}${ConsoleColor.reset}';
   log(message);
-  //todo
-  // if (saveToFile) {
-  // }
 }
 
 void printInfo(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.blue]}[INFO]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.blue}[INFO]: $object${ConsoleColor.reset}');
 }
 
 void printWarning(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.yellow]}[WARNING]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.yellow}[WARNING]: $object${ConsoleColor.reset}');
 }
 
 void printSuccess(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.green]}[SUCCESS]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.green}[SUCCESS]: $object${ConsoleColor.reset}');
 }
 
 void printDebug(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.magenta]}[DEBUG]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.magenta}[DEBUG]: $object${ConsoleColor.reset}');
 }
 
 void printCritical(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.cyan]}[CRITICAL]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.cyan}[CRITICAL]: $object${ConsoleColor.reset}');
 }
 
 void printVerbose(Object object) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[ConsoleColor.gray]}[VERBOSE]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${ConsoleColor.gray}[VERBOSE]: $object${ConsoleColor.reset}');
 }
 
 void printCustom(Object object, ConsoleColor color) {
-  // if (!kDebugMode) return;
-  log('${colorCodes[color]}[CUSTOM]: $object${colorCodes[ConsoleColor.reset]}');
+  if (!PrintSettings().enabled) return;
+  log('${PrintSettings().getDateTime()}${color}[CUSTOM]: $object${ConsoleColor.reset}');
 }
